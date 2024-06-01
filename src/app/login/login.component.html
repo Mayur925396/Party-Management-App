@@ -1,0 +1,32 @@
+<div *ngIf="sample else elseBlock">
+
+<div class="col-4 p-2 offset-4 treat d-flex align-items-center treat">
+    <form class="rounded shadow p-4 row g-3" [formGroup]="user" (ngSubmit)="onLogin()">
+        <div class="form-group">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" formControlName="username" placeholder="Enter Your Username" required
+                [ngClass]="FrmSub && f.username.errors? 'is-invalid':''">
+            <div class="invalid-feedback" *ngIf="FrmSub && f.username.touched">
+                <i>Please Enter Your Username</i>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" placeholder="Enter Your Password " formControlName="password" required
+            [ngClass]="FrmSub && f.password.errors? 'is-invalid':''">
+        <div class="invalid-feedback" *ngIf="FrmSub && f.password.touched">
+            <div *ngIf="FrmSub && f.password.errors?.required"><i>Please Enter Your Password</i></div>
+            <div *ngIf="FrmSub && f.password.errors?.pattern"><i>Password Should contain One Uppercase, One Lowercase and One Special characters with minimum lenght as 8</i></div>
+        </div>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary col-12" type="submit">Login</button>
+            <hr>
+    </div>
+    </form>
+    </div>
+    </div>
+    <ng-template #elseBlock>
+<h1>You are Successfully Logged In</h1>
+<button class="btn btn-danger" (click)="logout()">LogOut</button>
+    </ng-template>

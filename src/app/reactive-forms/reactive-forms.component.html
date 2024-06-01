@@ -1,0 +1,281 @@
+<div class="coontainer p-5" style="background-color: aliceblue;">
+    <h3 class="text-center mb-3">Party Management Form</h3>
+   
+      
+    <form class="col-8 row g-2 rounded shadow offset-2 p-3" [formGroup]="partyData" (ngSubmit)="createParty()"
+        enctype="multipart/form-data">
+        
+        <input type="hidden" formControlName="id">
+        <div class="form-group col-6">
+            <input type="checkbox" class="form-check-input" formControlName="login_access" placeholder="Login Access">
+            <label for="login" class="ms-2">Login Access</label>
+        </div>
+        <div class="form-group col-6">
+            <input type="checkbox" class="form-check-input" formControlName="apply_tds" placeholder="apply_tds">
+            <label for="apply_tds" class="ms-2">Apply TDS</label>
+        </div>
+        <div class="form-floating col-6">
+            <input type="text" class="form-control" formControlName="name" placeholder="Enter Name" required
+                [ngClass]="isFrmSub && f['name'].errors? 'is-invalid':''">
+            <label for="name" class="ms-2">Your Name</label>
+            <div class="invalid-feedback" *ngIf="isFrmSub && f['name'].touched">
+                <i>Please Enter Your Name</i>
+            </div>
+        </div>
+        <div class="form-floating mt-2 col-6">
+            <input type="text" class="form-control" formControlName="company_name" placeholder="Enter Company Name"
+                required [ngClass]="isFrmSub && f['company_name'].errors? 'is-invalid':''">
+            <label for="company_name" class="ms-2">Company Name</label>
+            <div class="invalid-feedback" *ngIf="isFrmSub && f['company_name'].touched">
+                <i>Please Enter Company Name</i>
+            </div>
+        </div>
+        <div class="form-floating mt-2 col-6">
+            <input type="tel" class="form-control" formControlName="mobile_no" placeholder="Enter Mobile Numbr" required
+                [ngClass]="isFrmSub && f.mobile_no.errors? 'is-invalid':''" maxlength="10">
+            <label for="mobile_no" class="ms-2">Mobile Number</label>
+            <div class="invalid-feedback" *ngIf="isFrmSub && f.mobile_no.touched">
+                <div *ngIf="isFrmSub && f.mobile_no.errors?.required"><i>Please Enter Your Mobile Number</i></div>
+                <div *ngIf="isFrmSub && f.mobile_no.errors?.pattern"><i>Mobile No. Should be 10 Digits</i></div>
+            </div>
+        </div>
+        <div class="form-floating mt-2 col-6">
+            <input type="tel" class="form-control" formControlName="telephone_no" placeholder="Enter Telephone Numbr">
+            <label for="telephone_no" class="ms-2">Telephone Number</label>
+        </div>
+        <div class="form-floating mt-2 col-6">
+            <input type="tel" class="form-control" formControlName="whatsapp_no" placeholder="Enter Whatsapp Numbr">
+            <label for="whatsapp_no" class="ms-2">Whatsapp Number</label>
+        </div>
+        <div class="form-floating mt-2 col-6">
+            <input type="text" class="form-control" formControlName="remark" placeholder="Remark">
+            <label for="remark" class="ms-2">Remark</label>
+        </div>
+
+
+        <div class="col-6 form-group">
+            <label for="date input" class="ms-2 my-1 date">Date of Birth</label>
+            <div class="form-group d-flex justify-content-between my-1">
+                <input class="form-control" placeholder="YYYY-MM-DD" name="dp" formControlName="date_of_birth"
+                    ngbDatepicker #d="ngbDatepicker" required
+                    [ngClass]="isFrmSub && f.date_of_birth.errors? 'is-invalid':''" />
+                <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle()" type="button"></button>
+                <div class="invalid-feedback" *ngIf="isFrmSub && f.date_of_birth.touched">
+                    <div *ngIf="isFrmSub && f.date_of_birth.errors?.required"><i>Please Enter Date in YYYY-MM-DD
+                            Format</i></div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="col-6 form-group">
+            <label for="date input2" class="ms-2 my-1 date">Anniversary Date</label>
+            <div class="form-group d-flex justify-content-between my-1">
+                <input class="form-control" placeholder="YYYY-MM-DD" name="dp2" formControlName="anniversary_date"
+                    ngbDatepicker #d2="ngbDatepicker" required
+                    [ngClass]="isFrmSub && f.anniversary_date.errors? 'is-invalid' :''" />
+                <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d2.toggle()" type="button"></button>
+                <div class="invalid-feedback" *ngIf="isFrmSub && f.anniversary_date.touched">
+                    <div *ngIf="isFrmSub && f.anniversary_date.errors?.required"><i>Please Enter Date in YYYY-MM-DD
+                            Format</i></div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-floating mt-2 col-6">
+            <input type="text" class="form-control" formControlName="gstin" placeholder="gstin" required
+                [ngClass]="isFrmSub && f.gstin.errors? 'is-invalid':''">
+            <label for="gstin" class="ms-2">GSTIN Number</label>
+            <div class="invalid-feedback" *ngIf="isFrmSub && f.gstin.touched">
+                <i>Please Enter Unique GSTIN Number</i>
+            </div>
+        </div>
+        <div class="form-floating mt-2 col-6">
+            <input type="text" class="form-control" formControlName="pan_no" placeholder="pan">
+            <label for="panno" class="ms-2">PAN Number</label>
+        </div>
+        <div class="form-floating mt-2 col-6">
+            <input type="number" class="form-control" formControlName="credit_limit" placeholder="credit_limit" required
+                [ngClass]="isFrmSub && f.credit_limit.errors? 'is-invalid':'' ">
+            <label for="credit_limit" class="ms-2">Credit Limit</label>
+            <div class="invalid-feedback" *ngIf="isFrmSub && f.credit_limit.touched">
+                <div *ngIf="isFrmSub && f.credit_limit.errors?.required"><i>Please Enter Your Credit Limit</i></div>
+                <div *ngIf="isFrmSub && f.credit_limit.errors?.pattern"><i>Only Numbers Allowed</i></div>
+            </div>
+        </div>
+        <div class="form-floating mt-2 col-6">
+            <input type="email" class="form-control" formControlName="email" placeholder="email" required
+                [ngClass]="isFrmSub && f.email.errors? 'is-invalid':''">
+            <label for="email" class="ms-2">Email Address</label>
+            <div class="invalid-feedback" *ngIf="isFrmSub && f.email.touched">
+                <div *ngIf="isFrmSub && f.email.errors?.required"><i>Please Enter Your Email Id</i></div>
+                <div *ngIf="isFrmSub && f.email.errors?.pattern"><i>Enter Valid Email Id</i></div>
+            </div>
+        </div>
+        <div formArrayName="address">
+            <div class="d-flex justify-content-between align-items-center p-2">
+                <h6 class="ms-2">Address: </h6>
+                <button type="button" class="btn" (click)="addAddress()"><svg xmlns="http://www.w3.org/2000/svg"
+                        width="32" height="32" fill="#0d6efd" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                        <path
+                            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z" />
+                    </svg></button>
+            </div>
+
+            <div class="row g-2 mt-1" *ngFor="let address of address.controls; let i=index" [formGroupName]="i">
+                <div class="form-floating col-6">
+                    <input type="text" placeholder="address line1" class="form-control"
+                        formControlName="address_line_1">
+                    <label for="address_line_1" class="ms-2">Address Line 1</label>
+                </div>
+
+                <div class="form-floating col-6">
+                    <input type="text" placeholder="address line2" class="form-control"
+                        formControlName="address_line_2">
+                    <label for="address_line_2" class="ms-2">Address Line 2</label>
+                </div>
+
+                <div class="form-floating col-6">
+                    <input type="text" class="form-control" placeholder="country" formControlName="country">
+                    <label for="country" class="ms-2">Country</label>
+                </div>
+
+                <div class="form-floating col-6">
+                    <input type="text" class="form-control" placeholder="state" formControlName="state">
+                    <label for="state" class="ms-2">State</label>
+                </div>
+
+                <div class="form-floating col-6">
+                    <input type="text" class="form-control" placeholder="city" formControlName="city">
+                    <label for="city" class="ms-2">City</label>
+                </div>
+
+                <div class="form-floating col-6">
+                    <input type="text" class="form-control" placeholder="pincode" formControlName="pincode">
+                    <label for="pincode" class="ms-2">Pincode</label>
+                </div>
+
+                <div class="form-floating col-12">
+                    <input type="text" class="form-control" placeholder="Address Type" formControlName="address_type">
+                    <label for="address_type" class="ms-2">Address Type</label>
+                </div>
+                <div class="d-flex col-12 justify-content-between">
+                    <button type="button" class="btn" (click)="removeAddress(i)"><svg xmlns="http://www.w3.org/2000/svg"
+                            width="32" height="32" fill="#dc3545" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                            <path
+                                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z" />
+                        </svg></button>
+                </div>
+            </div>
+
+
+        </div>
+        <div formArrayName="bank_id">
+            <div class="d-flex justify-content-between align-items-center p-2">
+                <h6 class="ms-2">Bank Information: </h6>
+                <button type="button" class="btn" (click)="addBank()"><svg xmlns="http://www.w3.org/2000/svg" width="32"
+                        height="32" fill="#0d6efd" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                        <path
+                            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z" />
+                    </svg></button>
+            </div>
+
+            <div class="row g-2 mt-1" *ngFor="let bank of bank_id.controls; let j=index" [formGroupName]="j">
+                <div class="form-floating col-6">
+                    <input type="number" placeholder="bank_ifsc_code" class="form-control"
+                        formControlName="bank_ifsc_code">
+                    <label for="bank_ifsc_code" class="ms-2">Bank IFSC Code</label>
+                </div>
+
+                <div class="form-floating col-6">
+                    <input type="text" placeholder="bank_name" class="form-control" formControlName="bank_name">
+                    <label for="bank_name" class="ms-2">Bank Name</label>
+                </div>
+
+                <div class="form-floating col-6">
+                    <input type="text" class="form-control" placeholder="branch_name" formControlName="branch_name">
+                    <label for="branch_name" class="ms-2">Branch Name</label>
+                </div>
+
+                <div class="form-floating col-6">
+                    <input type="number" class="form-control" placeholder="account_no" formControlName="account_no">
+                    <label for="account_no" class="ms-2">Account Number</label>
+                </div>
+
+                <div class="form-floating col-12">
+                    <input type="text" class="form-control" placeholder="account_holder_name"
+                        formControlName="account_holder_name">
+                    <label for="account_holder_name" class="ms-2">Account Holder Name</label>
+                </div>
+                <div class="d-flex col-12 justify-content-between">
+                    <button type="button" class="btn" (click)="removeBank(j)"><svg xmlns="http://www.w3.org/2000/svg"
+                            width="32" height="32" fill="#dc3545" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                            <path
+                                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z" />
+                        </svg></button>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="form-group">
+            <input type="file" class="form-control" #fileInput (change)="fileSelect($event)" accept="image/*">
+        </div>
+        <div class="form-group text-center mt-3">
+            <button class="btn btn-success" type="submit">Submit</button>
+            <button class="btn btn-warning ms-5" type="button" (click)="updateIt()">Update</button>
+        </div>
+       
+
+    </form>
+    <div class="offset-2 col-8 mt-4">
+        <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+            {{ errorMessage }}
+          </div>
+        <div *ngIf="successMessage" class="alert alert-success" role="alert">
+            {{ successMessage }}
+          </div>
+
+    </div>
+</div>
+
+<table class="table-bordered col-12">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Company Name</th>
+        <th>Mobile Number</th>
+        <th>Email</th>
+        <th>Date of Birth</th>
+        <th>Anniversary Date</th>
+        <th>GSTIN Number</th>
+        <th>PAN Number</th>
+       
+
+        <th colspan="2" class="text-center">Action</th>
+    </tr>
+    <tr *ngFor="let x of parties">
+        <td>{{x.id}}</td>
+        <td>{{x.name}}</td>
+        <td>{{x.company_name}}</td>
+        <td>{{x.mobile_no}}</td>
+        <td>{{x.email}}</td>
+        <td>{{x.date_of_birth}}</td>
+        <td>{{x.anniversary_date}}</td>
+        <td>{{x.gstin}}</td>
+        <td>{{x.pan_no}}</td>
+       
+
+        <td><button class="btn btn-danger" (click)="delete(x.id)"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                    height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                    <path
+                        d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5" />
+                </svg></button></td>
+        <td><button class="btn btn-warning" (click)="update(x)"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                    height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                    <path
+                        d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325" />
+                </svg></button></td>
+    </tr>
+</table>
